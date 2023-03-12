@@ -1,25 +1,64 @@
 :root {
+  --clr-neon: hsl(317 100% 54%);
+  --clr-bg: hsl(323 21% 16%);
 }
 
 #app {
-  background-image: linear-gradient(
-    to right top,
-    #051937,
-    #004d7a,
-    #008793,
-    #00bf72,
-    #a8eb12
-  );
+  background-color: var(--clr-bg);
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: var(--clr-neon);
 }
 
-.main-group {
-  width: min(30rem, 90%);
+.neon-btn {
+  font-size: 3rem;
+  color: var(--clr-neon);
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  border: .125em solid currentColor;
+  padding: .25em 1em;
+  border-radius: 0.25em;
+
+  text-shadow: 
+    0 0 .125em hsl(0 0% 100% / 0.3), 0 0 0.45em currentColor;
+
+  box-shadow: inset 0 0 .5em 0 var(--clr-neon),
+    0 0 .5em 0 var(--clr-neon);
+
+  position: relative;
+
+  animation: levitate 1.5s ease  infinite alternate;
 }
 
-.card {
-  background-color: white;
+.neon-btn::before {
+  content: "";
+  position: absolute;
+  background-color: var(--clr-neon);
+  inset: 0;
+  transform: translateY(calc(100% + 0.25em)) perspective(1em) rotateX(40deg) scale(1, 0.35);
+  filter: blur(1em);
+  animation: levitate-shadow 1.5s ease  infinite alternate;
 }
+
+@keyframes levitate {
+  from {
+    transform: translateY(0em);
+  }
+  to {
+    transform: translateY(-0.8em);
+  }
+}
+@keyframes levitate-shadow {
+  from {
+    transform: translateY(calc(100% + 0.25em)) perspective(1em) rotateX(40deg) scale(1, 0.35);
+    filter: blur(1em) brightness(1);
+  }
+  to {
+    transform: translateY(calc(100% + 0.25em + 0.8em)) perspective(1em) rotateX(40deg) scale(1, 0.35);
+    filter: blur(0.8em) brightness(0.6);
+  }
+}
+
